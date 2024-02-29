@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-mongodb # Servis objesinin adını belirliyoruz
+spec:
+  selector: # Kendisine bağlanacak olan podları seçebilmesi için label ekliyoruz.
+    service: pod-deployment-mongo
+  type: LoadBalancer # Servis Objesinin türünü belirtiyoruz.[LoadBalancer, ClusterIP, NodePort]
+  ports:
+  - name: mongo
+    port: 27017 # servis e yapılacak olan isteklerin portu
+    targetPort: 27017 # Bu port kendisine bağlanan pod ların portları olmak zorundadır.

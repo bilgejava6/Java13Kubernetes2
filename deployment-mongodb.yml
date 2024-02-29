@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-mongo
+spec:
+  selector: # Deploymeny objesi pod ları yakalayabilmek için eşleşme arıyor.
+    matchLabels:
+      service: pod-deployment-mongo
+  template: # Buradan itibaren pod ile alakalı özellikleri yazıyoruz.
+    metadata:
+      labels: # bir pod un etiketi.
+        service: pod-deployment-mongo
+    spec:
+      containers:
+      - name: pod-mongo # pod un adı
+        image: mongo:jammy # hub.docer üzerindeki image dı (mongo, redis, elasticsearch)
+        resources:
+          limits:
+            memory: "1024Mi" # node ın total ram inden ne kadar kullanılacağı
+            cpu: "300m" # node vCpu su 2 ise bu -> 2000M demektir.
+        ports:
+        - containerPort: 27017
+        env: # işletim sistemine eklemek istediğiniz environmentvariable listesini ekliyoruz.
+          - name: MONGO_INITDB_ROOT_USERNAME
+            value: admin
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            value: root
+
+        

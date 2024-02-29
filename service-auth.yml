@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-auth # Servis objesinin adını belirliyoruz
+spec:
+  selector: # Kendisine bağlanacak olan podları seçebilmesi için label ekliyoruz.
+    service: pod-deployment-auth
+  type: LoadBalancer # Servis Objesinin türünü belirtiyoruz.[LoadBalancer, ClusterIP, NodePort]
+  ports:
+  - name: auth
+    port: 9090 # servis e yapılacak olan isteklerin portu
+    targetPort: 9090 # Bu port kendisine bağlanan pod ların portları olmak zorundadır.

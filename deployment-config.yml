@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-config
+spec:
+  selector: # Deploymeny objesi pod ları yakalayabilmek için eşleşme arıyor.
+    matchLabels:
+      service: pod-deployment-config
+  template: # Buradan itibaren pod ile alakalı özellikleri yazıyoruz.
+    metadata:
+      labels: # bir pod un etiketi.
+        service: pod-deployment-config
+    spec:
+      containers:
+      - name: pod-config # pod un adı
+        image: javaboost2/config-service:v.0.2 # hub.docer üzerindeki image dı (mongo, redis, elasticsearch)
+        resources:
+          limits:
+            memory: "1024Mi" # node ın total ram inden ne kadar kullanılacağı
+            cpu: "300m" # node vCpu su 2 ise bu -> 2000M demektir.
+        ports:
+        - containerPort: 8888
+        env: # işletim sistemine eklemek istediğiniz environmentvariable listesini ekliyoruz.
+          - name: GIT_KEY
+            value: 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
+
+        

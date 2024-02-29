@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-config # Servis objesinin adını belirliyoruz
+spec:
+  selector: # Kendisine bağlanacak olan podları seçebilmesi için label ekliyoruz.
+    service: pod-deployment-config
+  type: ClusterIP # Servis Objesinin türünü belirtiyoruz.[LoadBalancer, ClusterIP, NodePort]
+  ports:
+  - name: config-git
+    port: 8888 # servis e yapılacak olan isteklerin portu
+    targetPort: 8888 # Bu port kendisine bağlanan pod ların portları olmak zorundadır.
