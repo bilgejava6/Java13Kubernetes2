@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-redis # Servis objesinin adını belirliyoruz
+spec:
+  selector: # Kendisine bağlanacak olan podları seçebilmesi için label ekliyoruz.
+    service: pod-deployment-redis
+  type: ClusterIP # Servis Objesinin türünü belirtiyoruz.[LoadBalancer, ClusterIP, NodePort]
+  ports:
+  - name: redis
+    port: 6379 # servis e yapılacak olan isteklerin portu
+    targetPort: 6379 # Bu port kendisine bağlanan pod ların portları olmak zorundadır.

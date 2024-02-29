@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-rabbit # Servis objesinin adını belirliyoruz
+spec:
+  selector: # Kendisine bağlanacak olan podları seçebilmesi için label ekliyoruz.
+    service: pod-deployment-rabbitmq
+  type: ClusterIP # Servis Objesinin türünü belirtiyoruz.[LoadBalancer, ClusterIP, NodePort]
+  ports:
+  - name: rabbit-rest
+    port: 5672 # servis e yapılacak olan isteklerin portu
+    targetPort: 5672 # Bu port kendisine bağlanan pod ların portları olmak zorundadır.
+  - name: rabbit-web
+    port: 15672
+    targetPort: 15672
